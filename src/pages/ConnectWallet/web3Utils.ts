@@ -3,19 +3,21 @@ import {
   InjectedConnector,
   InjectedConnector as MetamaskConnector,
 } from '@web3-react/injected-connector';
-import { PortisConnector } from '@web3-react/portis-connector';
+//import { PortisConnector } from '@web3-react/portis-connector';
 import { useWeb3React } from '@web3-react/core';
-import { FortmaticConnector } from './fortmaticConnector';
+//import { FortmaticConnector } from './fortmaticConnector';
 import { web3ReactInterface } from './index';
 import {
-  FORTMATIC_KEY,
+  //FORTMATIC_KEY,
   IS_MAINNET,
-  PORTIS_DAPP_ID,
+  //PORTIS_DAPP_ID,
   INFURA_URL,
   EL_TESTNET_NAME,
 } from '../../utils/envVars';
 
 export enum NetworkChainId {
+  'Project202 Mainnet' = 202,
+  'Project202 Testnet' = 10202,
   'Mainnet' = 1,
   'Ropsten' = 3,
   'Goerli' = 5,
@@ -27,28 +29,34 @@ export enum NetworkChainId {
  */
 
 const supportedNetworks = [
+  NetworkChainId['Project202 Mainnet'],
+  NetworkChainId['Project202 Testnet'],
   NetworkChainId.Mainnet,
   NetworkChainId.Ropsten,
   NetworkChainId.Goerli,
 ];
 
 enum Testnet {
+  'Project202 Testnet',
   'Ropsten',
   'Goerli',
 }
 
 enum Mainnet {
+  'Project202 Mainnet',
   'Mainnet',
 }
 
 export const NetworkNameToChainId: { [key: string]: NetworkChainId } = {
+  'Project202 Mainnet': NetworkChainId['Project202 Mainnet'],
+  'Project202 Testnet': NetworkChainId['Project202 Testnet'],
   Mainnet: NetworkChainId.Mainnet,
   Ropsten: NetworkChainId.Ropsten,
   Goerli: NetworkChainId.Goerli,
 };
 
 export const TARGET_NETWORK_CHAIN_ID = IS_MAINNET
-  ? NetworkChainId.Mainnet
+  ? NetworkChainId['Project202 Mainnet']
   : NetworkNameToChainId[EL_TESTNET_NAME];
 
 export const IS_GOERLI = TARGET_NETWORK_CHAIN_ID === NetworkChainId.Goerli;
@@ -59,16 +67,16 @@ export const metamask: InjectedConnector = new MetamaskConnector({
   supportedChainIds: supportedNetworks,
 });
 
-export const portis: PortisConnector = new PortisConnector({
+/*export const portis: PortisConnector = new PortisConnector({
   dAppId: PORTIS_DAPP_ID,
   networks: supportedNetworks,
-});
+});*/
 
-export const fortmatic: FortmaticConnector = new FortmaticConnector({
+/*export const fortmatic: FortmaticConnector = new FortmaticConnector({
   apiKey: FORTMATIC_KEY as string,
   chainId: TARGET_NETWORK_CHAIN_ID,
   rpcUrl: INFURA_URL,
-});
+});*/
 
 // sets up initial call to MM
 export function useMetamaskEagerConnect(): boolean {
